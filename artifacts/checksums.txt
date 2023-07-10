@@ -1,0 +1,1 @@
+305942af2d3e303a51bb5d0fbd2c3537c84124ab4b909b8d17b9d2ec3e2484b3  bank_query.wasm

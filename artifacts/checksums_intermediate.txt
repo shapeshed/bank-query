@@ -1,0 +1,1 @@
+2723b125e6a3f8a569c73773a461e70263b60c2776854d04dbd70038ed5d439d  ./target/wasm32-unknown-unknown/release/bank_query.wasm
