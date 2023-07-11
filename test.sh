@@ -38,4 +38,4 @@ printf '\n%s\n' '--- QUERY ALICE PICA BALANCE ---'
 ccw substrate --node http://$NODE_ADDRESS \
   --output json query wasm --contract "$CONTRACT_ADDRESS" \
   --gas 10000000000 \
-  --query '{"balance": {"address": "5yNZjX24n2eg7W6EVamaTXNQbWCwchhThEaSWB7V3GRjtHeL", "denom": "PICA"} }'
+  --query '{"balance": {"address": "5yNZjX24n2eg7W6EVamaTXNQbWCwchhThEaSWB7V3GRjtHeL", "denom": "1"} }'
