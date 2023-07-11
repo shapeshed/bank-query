@@ -48,10 +48,7 @@ pub fn send_tokens(
     denom: String,
 ) -> Result<Response, ContractError> {
     let amount = vec![coin(tokens_to_send.into(), denom)];
-    Ok(Response::new().add_message(BankMsg::Send {
-        to_address: to_address.clone().into(),
-        amount,
-    }))
+    Ok(Response::new().add_message(BankMsg::Send { to_address, amount }))
 }
 
 #[cfg_attr(not(feature = "library"), entry_point)]
