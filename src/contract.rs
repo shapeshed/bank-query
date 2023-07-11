@@ -118,13 +118,6 @@ mod tests {
         let owner_balance = Uint128::from(1000u128);
         let tokens_to_send = Uint128::from(100u128);
 
-        // Mint tokens to the deployer
-        app.sudo(SudoMsg::Bank(BankSudo::Mint {
-            to_address: deployer.to_string(),
-            amount: vec![coin(owner_balance.into(), "PICA".to_string())],
-        }))
-        .unwrap();
-
         let code = ContractWrapper::new(execute, instantiate, query);
         let code_id = app.store_code(Box::new(code));
 
@@ -132,6 +125,14 @@ mod tests {
             .instantiate_contract(code_id, deployer.clone(), &Empty {}, &[], "Contract", None)
             .unwrap();
 
+        // mint tokens to the contract
+        app.sudo(SudoMsg::Bank(BankSudo::Mint {
+            to_address: addr.to_string(),
+            amount: vec![coin(owner_balance.into(), "PICA".to_string())],
+        }))
+        .unwrap();
+
+        // transfer to alice from contract
         app.execute_contract(
             deployer.clone(),
             addr.clone(),
@@ -142,7 +143,7 @@ mod tests {
             },
             &[],
         )
-        .unwrap_err();
+        .unwrap();
 
         let alice_balance: Uint128 = app
             .wrap()
