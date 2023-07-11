@@ -22,7 +22,7 @@ echo "$STORE_CODE_OUTPUT"
 
 CODE_ID=$(echo "$STORE_CODE_OUTPUT" | jq '.extrinsic.details.code_id')
 
-# Instantiate the CW20 contract
+# Instantiate the contract
 printf '\n%s\n' '--- INSTANTIATE CONTRACT ---'
 INSTANTIATE_OUTPUT=$(
   ccw substrate --node ws://$NODE_ADDRESS \
@@ -48,6 +48,7 @@ ccw substrate --node http://$NODE_ADDRESS \
 # ----------------------------------
 # Send PICA to contract from Alice using pd.js
 # before running the following commands
+# TODO: Automate this
 # ----------------------------------
 printf '\n%s\n' '--- QUERY CONTRACT BALANCE ---'
 ccw substrate --node http://$NODE_ADDRESS \
@@ -55,5 +56,5 @@ ccw substrate --node http://$NODE_ADDRESS \
   --gas 10000000000 \
   --query '{"balance": {"address": '"$CONTRACT_ADDRESS"', "denom": "1"} }'
 
-# Transfer back to Alice
+# Transfer back to Alice using Bank::Send
 ccw substrate --node ws://$NODE_ADDRESS --from alice --output json tx execute --contract "$CONTRACT_ADDRESS" --gas 10000000000 --message '{"transfer": {"address": "5yNZjX24n2eg7W6EVamaTXNQbWCwchhThEaSWB7V3GRjtHeL", "denom": "1", "amount": "1000"} }'
